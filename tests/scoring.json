@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "weight_policy": {
+    "version": 1,
+    "basis": "business_priority",
+    "core_min_share": 0.5
+  },
+  "gate_tests": [
+    "test_outputs.py::test_gate_requires_parameterized_temperature_closure"
+  ],
+  "tests": {
+    "test_outputs.py::test_four_heater_schedules_recover_shared_thermal_parameters": {
+      "weight": 0.14,
+      "priority": "core",
+      "rationale": "多组脉冲试验共同约束四个热路参数，是设备辨识的核心交付。"
+    },
+    "test_outputs.py::test_asymmetric_chambers_recover_independent_loss_rates": {
+      "weight": 0.14,
+      "priority": "core",
+      "rationale": "两个腔体散热率不等时仍能分离，决定控制器是否会误用对称模型。"
+    },
+    "test_outputs.py::test_single_side_heating_identifies_chamber_coupling": {
+      "weight": 0.14,
+      "priority": "core",
+      "rationale": "单侧加热引起另一腔升温，只有正确恢复耦合率才能解释串热现象。"
+    },
+    "test_outputs.py::test_fitted_thermal_model_closes_all_observations": {
+      "weight": 0.14,
+      "priority": "core",
+      "rationale": "全部观测时刻的误差闭合比只看末温更能证明完整热路模拟正确。"
+    },
+    "test_outputs.py::test_extra_top_level_key_rejects_whole_campaign": {
+      "weight": 0.09,
+      "priority": "schema",
+      "rationale": "额外试验级别字段可能掩盖版本差异，因此应在建模前整体拒收。"
+    },
+    "test_outputs.py::test_overlapping_heater_intervals_are_refused": {
+      "weight": 0.09,
+      "priority": "boundary",
+      "rationale": "重叠功率区间会让总加热量无法复现，必须阻止其进入参数估计。"
+    },
+    "test_outputs.py::test_observation_after_run_duration_is_refused": {
+      "weight": 0.09,
+      "priority": "boundary",
+      "rationale": "超出试验时长的温度无法由积分轨迹解释，拒收可避免外推污染辨识。"
+    },
+    "test_outputs.py::test_boolean_observation_temperature_is_refused": {
+      "weight": 0.09,
+      "priority": "boundary",
+      "rationale": "布尔温度会伪装成零或一，必须在热路拟合前按非法观测拒收。"
+    },
+    "test_outputs.py::test_output_is_compact_sorted_and_stable": {
+      "weight": 0.08,
+      "priority": "supporting",
+      "rationale": "稳定序列化便于控制组重复核对同一组热路参数与误差记录。"
+    }
+  }
+}
