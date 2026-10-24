@@ -374,7 +374,7 @@ def test_boolean_observation_temperature_is_refused(tmp_path: Path) -> None:
 
 def test_output_is_compact_sorted_and_stable(tmp_path: Path) -> None:
     """题面：
-    「`<input.json> <output.json>` 两参数入口；计算只靠镜像自带解释器，结果与外部服务无关。」
+    「重跑同一试验文件两次，输出必须逐字节一致。」
     """
 
     # THM-CLI THM-NONET THM-FORMAT THM-REPEAT
