@@ -334,7 +334,7 @@ def test_overlapping_heater_intervals_are_refused(tmp_path: Path) -> None:
 
 def test_observation_after_run_duration_is_refused(tmp_path: Path) -> None:
     """题面：
-    「结果字节必须相同。」
+    「观测时间严格递增并落在试验时长内」
     """
 
     payload = _payload(run_count=3)
@@ -350,7 +350,7 @@ def test_observation_after_run_duration_is_refused(tmp_path: Path) -> None:
 
 def test_boolean_observation_temperature_is_refused(tmp_path: Path) -> None:
     """题面：
-    「写回时不要插入多余空格；对象键按字母升序；文件最后保留一个换行。同一份记录重复运行时，」
+    「布尔值不能当作数值」
     """
 
     # THM-OBSKEYS THM-OBSKEYS2 THM-BOOL
